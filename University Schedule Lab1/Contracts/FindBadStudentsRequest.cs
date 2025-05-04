@@ -6,7 +6,7 @@ namespace University_Schedule_Lab1.Contracts;
 public record FindBadStudentsRequest
 {
     [Required]
-    [DefaultValue("Особенности")]
+    [DefaultValue("источник")]
     public string? SearchText { get; set; }
 
     [Required]

@@ -32,7 +32,7 @@ public class FindBadStudentsService
         var reportItems = new List<LowAttendanceReportResponse>(); // Итоговый список для отчета
         
         //получаем id лекций из elastic-а с заданным словом
-        var lecturesIds = await _elasticRepository.GetMaterialElasticByTextAsync(searchTerm);
+        var lecturesIds = await _elasticRepository.GetMaterialElasticByTextAsync(searchTerm, limit:1000);
 
 
         var res = await _lectureRepository.GetGroupIdsByLectureId(lecturesIds);
