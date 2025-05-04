@@ -13,10 +13,11 @@ public class ScheduleRepository
         _logger = logger;
     }
 
-    public List<Schedule> GetSchedulesByLectureAndGroupIds(IEnumerable<int> lecturesIds, IEnumerable<int> groupIds)
+    public List<Schedule> GetSchedulesByLectureAndGroupIds(IEnumerable<int> lecturesIds, IEnumerable<int> groupIds,  DateTime startDate, DateTime endDate)
     {
-        var res=  _context.Schedules.Where
-            (s=>lecturesIds.Contains(s.LectureId) && groupIds.Contains(s.GroupId))
+        var res=  _context.Schedules
+            .Where(s=>lecturesIds.Contains(s.LectureId) && groupIds.Contains(s.GroupId))
+            .Where(s => s.StartTime >= startDate.ToUniversalTime() && s.StartTime <= endDate.ToUniversalTime())
             .ToList();
         return res;
     }

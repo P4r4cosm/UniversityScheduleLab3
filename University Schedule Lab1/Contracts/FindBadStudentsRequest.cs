@@ -10,10 +10,10 @@ public record FindBadStudentsRequest
     public string? SearchText { get; set; }
 
     [Required]
-    [DefaultValue("2021-09-01T12:00:00")]
+    [DefaultValue("2000-09-01T12:00:00")]
     public DateTime StartDate { get; set; }
     
     [Required]
-    [DefaultValue("2022-09-01T12:00:00")]
+    [DefaultValue("2030-09-01T12:00:00")]
     public DateTime EndDate { get; set; }
 }

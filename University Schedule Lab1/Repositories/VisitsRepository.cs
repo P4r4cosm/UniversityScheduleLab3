@@ -12,5 +12,9 @@ public class VisitsRepository
         _context = context;
         _logger = logger;
     }
-    
+
+    public List<Visit> GetVisitsBySchedule(IEnumerable<int> schedulesIds)
+    {
+       return _context.Visits.Where(v => schedulesIds.Contains(v.ScheduleId)).ToList();
+    }
 }

@@ -15,8 +15,7 @@ public static class LabEndPoints
     private static async Task<IResult> GetStudentsAsync([AsParameters] FindBadStudentsRequest request,
         FindBadStudentsService service)
     {
-        await service.GetStudents(request.SearchText);
-
-        return Results.Ok();
+        var result = await service.GetStudents(request.SearchText, request.StartDate, request.EndDate);
+        return Results.Ok(result);
     }
 }

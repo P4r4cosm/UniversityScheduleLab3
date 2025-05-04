@@ -42,7 +42,9 @@ services.AddElastic(builder.Configuration);
 //добавляем репозитории 
 services.AddScoped<ElasticMaterialsRepository>();
 services.AddScoped<LectureRepository>();
-
+services.AddScoped<ScheduleRepository>();
+services.AddScoped<VisitsRepository>();
+services.AddScoped<StudentRepository>();
 //добавляем сервис
 services.AddScoped<FindBadStudentsService>();
 
