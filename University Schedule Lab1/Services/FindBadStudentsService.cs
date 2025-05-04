@@ -37,9 +37,10 @@ public class FindBadStudentsService
 
         var res = await _lectureRepository.GetGroupIdsByLectureId(lecturesIds);
         //получаем id групп и студентов прикриплённых к этим лекциям
-        var groupIds = res.Item2;
+        
         var studentIds = res.Item1;
-
+        var groupIds = res.Item2;
+        
         //получаем студентов из редиса
         var students = await _studentRepository.GetStudentsByIdsAsync(studentIds);
         var studentsDict = students.ToDictionary(s => s.Id);
@@ -57,11 +58,14 @@ public class FindBadStudentsService
         var scheduleIds = schedules.Select(s => s.Id).ToList();
         //получаем посещения исходя из нужных расписаний
         var visits = _visitsRepository.GetVisitsBySchedule(scheduleIds);
-
         // Группируем посещения по студентам для быстрого подсчета
         var visitsCountByStudentId = visits
-            .GroupBy(v => v.StudentId)
-            .ToDictionary(g => g.Key, g => g.Count());
+            .GroupBy(v => v.StudentId) // Группируем по студенту
+            .ToDictionary(
+                g => g.Key, // Ключ - StudentId
+                // Значение - количество УНИКАЛЬНЫХ ScheduleId в группе этого студента
+                g => g.Select(v => v.ScheduleId).Distinct().Count()
+            );
 
         //Рассчитываем посещаемость для КАЖДОГО студента из списка students 
         var studentAttendanceData = new Dictionary<int, (int Attended, int Total, double Percentage)>();
@@ -85,7 +89,7 @@ public class FindBadStudentsService
 
         //Формируем отчет: сортируем, берем топ-10 с худшей посещаемостью
         var sortedStudents = studentAttendanceData
-            .OrderByDescending(pair => pair.Value.Percentage) // Сортируем по проценту ПО ВОЗРАСТАНИЮ
+            .OrderBy(pair => pair.Value.Percentage) // Сортируем по проценту ПО ВОЗРАСТАНИЮ
             .Take(10) // Берем первых 10 (с самой низкой посещаемостью)
             .ToList();
         foreach (var studentDataPair in sortedStudents)
