@@ -28,11 +28,10 @@ public class FindBadStudentsService
 
     public async Task<List<LowAttendanceReportResponse>> GetStudents(string searchTerm, DateTime startDate, DateTime endDate)
     {
-        
         var reportItems = new List<LowAttendanceReportResponse>(); // Итоговый список для отчета
         
         //получаем id лекций из elastic-а с заданным словом
-        var lecturesIds = await _elasticRepository.GetMaterialElasticByTextAsync(searchTerm);
+        var lecturesIds = await _elasticRepository.GetMaterialElasticByTextAsync(searchTerm, limit:3000);
 
 
         var res = await _lectureRepository.GetGroupIdsByLectureId(lecturesIds);

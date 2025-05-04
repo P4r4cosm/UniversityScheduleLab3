@@ -18,7 +18,7 @@ public class ElasticMaterialsRepository
         public string lecture_text { get; set; }
     }
 
-    public async Task<List<int>> GetMaterialElasticByTextAsync(string text)
+    public async Task<List<int>> GetMaterialElasticByTextAsync(string text, int limit)
     {
         var response = await _elasticClient.SearchAsync<MaterialElasticDoc>(s => s
             .Index("materials")
@@ -28,7 +28,7 @@ public class ElasticMaterialsRepository
                     .Query(text)
                 )
             )
-        );
+            .Size(limit));
         // Извлекаем значения id_lect из документов
         return response.Documents
             .Select(d => d.id_lect)
