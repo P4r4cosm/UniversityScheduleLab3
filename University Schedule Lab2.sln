@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "University Schedule Lab1", "University Schedule Lab1\University Schedule Lab1.csproj", "{BEC8A1D9-8EDA-4532-A99D-1E6C5E1BFA77}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "University Schedule Lab2", "University Schedule Lab2\University Schedule Lab2.csproj", "{BEC8A1D9-8EDA-4532-A99D-1E6C5E1BFA77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

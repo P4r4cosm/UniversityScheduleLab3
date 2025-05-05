@@ -8,14 +8,15 @@ public static class LabEndPoints
 {
     public static IEndpointRouteBuilder MapGetStudentsEndpoint(this IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapGet("/lab1", GetStudentsAsync);
+        endpoints.MapGet("/lab2", GetStudentsAsync);
         return endpoints;
     }
 
-    private static async Task<IResult> GetStudentsAsync([AsParameters] FindBadStudentsRequest request,
-        FindBadStudentsService service)
+    private static async Task<IResult> GetStudentsAsync([AsParameters] FindAudienceRequest request,
+        FindAudienceService service)
     {
-        var result = await service.GetStudents(request.SearchText, request.StartDate, request.EndDate);
+        var result = await service.GetRequirements(request.CourseName,
+             request.Year);
         return Results.Ok(result);
     }
 }

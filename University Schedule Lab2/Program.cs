@@ -26,7 +26,7 @@ builder.Logging.AddConsole();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Lab1 Service API", Version = "v1" });
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Lab2 Service API", Version = "v1" });
 });
 
 
@@ -40,13 +40,10 @@ services.AddElastic(builder.Configuration);
 
 
 //добавляем репозитории 
-services.AddScoped<ElasticMaterialsRepository>();
+services.AddScoped<CourseRepository>();
 services.AddScoped<LectureRepository>();
-services.AddScoped<ScheduleRepository>();
-services.AddScoped<VisitsRepository>();
-services.AddScoped<StudentRepository>();
 //добавляем сервис
-services.AddScoped<FindBadStudentsService>();
+services.AddScoped<FindAudienceService>();
 
 var app = builder.Build();
 app.UseHttpsRedirection();
@@ -55,7 +52,7 @@ app.UseCors(MyAllowSpecificOrigins);
 app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
-    options.SwaggerEndpoint("/swagger/v1/swagger.json", "University Schedule API V1");
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "University Schedule API V1 LAB2");
     options.RoutePrefix = ""; // Доступ по /
 });
 
